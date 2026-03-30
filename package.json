@@ -1,0 +1,17 @@
+{
+  "name": "hello-ddso",
+  "version": "1.0.0",
+  "description": "JWT generator and verifier CLI for DDSO",
+  "type": "module",
+  "bin": {
+    "hello-ddso": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "readline-sync": "^1.4.10"
+  }
+}
