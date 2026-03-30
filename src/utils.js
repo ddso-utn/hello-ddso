@@ -13,20 +13,8 @@ export function getOS() {
   return "linux";
 }
 
-export function getIP() {
-  const nets = networkInterfaces();
-  for (const name of Object.keys(nets)) {
-    for (const net of nets[name]) {
-      if (net.family === "IPv4" && !net.internal) {
-        return net.address;
-      }
-    }
-  }
-  return "127.0.0.1";
-}
-
-export function computeHash({ name, surname, studentId, course, os, ip }) {
-  const raw = `${name}|${surname}|${studentId}|${course}|${os}|${ip}`;
+export function computeHash({ name, surname, studentId, course, os }) {
+  const raw = `${name}|${surname}|${studentId}|${course}|${os}`;
   return createHash("sha256").update(raw).digest("hex");
 }
 

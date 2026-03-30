@@ -27,7 +27,7 @@ Una vez instalado globalmente, el comando `hello-ddso` estará disponible en tu 
 
 ### `generate` - Generar un JWT
 
-Genera un JWT firmado que contiene los datos de estudiante  proporcionados, el sistema operativo y la IP detectados, y un hash SHA-256 de todos esos campos.
+Genera un JWT firmado que contiene los datos de estudiante  proporcionados, el sistema operativo detectado, y un hash SHA-256 de todos esos campos.
 
 ```bash
 hello-ddso generate \
@@ -47,7 +47,7 @@ hello-ddso generate \
 | `--course <course>`   | `-c`  | Código del curso - debe seguir el formato `K1234` (ej. `K1234`)  | ✅        |
 | `--no-confirm`        | `-y`  | Omitir la confirmación y generar directamente                    | ❌        |
 
-Por defecto, la CLI mostrará todos los datos recopilados (incluyendo el sistema operativo y la IP detectados automáticamente) y pedirá confirmación antes de generar el token.
+Por defecto, la CLI mostrará todos los datos recopilados (incluyendo el sistema operativo detectada automáticamente) y pedirá confirmación antes de generar el token.
 
 #### Omitir confirmación
 
@@ -65,7 +65,6 @@ hello-ddso generate -n Dani -s M -i 123456-7 -c K1234 --no-confirm
    Student ID  : 123456-7
    Course      : K1234
    OS          : linux
-   IP          : 192.168.1.42
    Hash        : e3b0c44298fc1c149afb...
 
 Generate token with this data? [y/n]: y
@@ -91,7 +90,6 @@ hello-ddso verify \
   --student-id 123456-7 \
   --course K1234 \
   --os linux \
-  --ip 192.168.1.42 \
   --token <encoded-jwt>
 ```
 
@@ -104,7 +102,6 @@ hello-ddso verify \
 | `--student-id <id>`   | `-i`  | Identificador de estudiante                                | ✅         |
 | `--course <course>`   | `-c`  | Código del curso                                           | ✅         |
 | `--os <os>`           |       | SO al momento de la generación (`windows`, `mac`, `linux`) | ✅         |
-| `--ip <ip>`           |       | IP al momento de la generación                             | ✅         |
 | `--token <token>`     | `-t`  | JWT codificado a verificar                                 | ✅         |
 
 #### Ejemplo de salida (token válido)
@@ -117,7 +114,6 @@ hello-ddso verify \
    Student ID  : 123456-7
    Course      : A1234
    OS          : linux
-   IP          : 192.168.1.42
    Hash        : e3b0c44298fc1c149afb...
    Issued at   : 2026-03-28T10:00:00.000Z
    Expires at  : 2026-03-28T11:00:00.000Z

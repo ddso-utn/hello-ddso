@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import jwt from "jsonwebtoken";
 import readlineSync from "readline-sync";
-import { getOS, getIP, computeHash, validateInputs, JWT_SECRET, JWT_EXPIRY } from "./utils.js";
+import { getOS, computeHash, validateInputs, JWT_SECRET, JWT_EXPIRY } from "./utils.js";
 
 export function generateCommand() {
   const cmd = new Command("generate");
@@ -25,10 +25,9 @@ export function generateCommand() {
       }
 
       const os = getOS();
-      const ip = getIP();
-      const hash = computeHash({ name, surname, studentId, course, os, ip });
+      const hash = computeHash({ name, surname, studentId, course, os });
 
-      const payload = { name, surname, studentId, course, os, ip, hash };
+      const payload = { name, surname, studentId, course, os, hash };
 
       // Confirmation
       if (confirm !== false) {
@@ -38,7 +37,6 @@ export function generateCommand() {
         console.log(`   Student ID  : ${studentId}`);
         console.log(`   Course      : ${course}`);
         console.log(`   OS          : ${os}`);
-        console.log(`   IP          : ${ip}`);
         console.log(`   Hash        : ${hash}\n`);
 
         const ok = readlineSync.keyInYNStrict("Generate token with this data?");

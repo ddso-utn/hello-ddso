@@ -12,10 +12,9 @@ export function verifyCommand() {
     .requiredOption("-i, --student-id <id>", "Student identifier (e.g. 123456-7)")
     .requiredOption("-c, --course <course>", "Course code (e.g. A1234)")
     .requiredOption("--os <os>", "Operating system (windows, mac, linux)")
-    .requiredOption("--ip <ip>", "IP address")
     .requiredOption("-t, --token <token>", "Encoded JWT token to verify")
     .action((opts) => {
-      const { name, surname, studentId, course, os, ip, token } = opts;
+      const { name, surname, studentId, course, os, token } = opts;
 
       // Validate inputs
       const errors = validateInputs({ name, surname, studentId, course });
@@ -40,7 +39,7 @@ export function verifyCommand() {
 
       // Check each field matches
       const mismatches = [];
-      const fields = { name, surname, studentId, course, os, ip };
+      const fields = { name, surname, studentId, course, os };
       for (const [key, value] of Object.entries(fields)) {
         if (decoded[key] !== value) {
           mismatches.push(
@@ -56,7 +55,7 @@ export function verifyCommand() {
       }
 
       // Recompute and verify hash
-      const expectedHash = computeHash({ name, surname, studentId, course, os, ip });
+      const expectedHash = computeHash({ name, surname, studentId, course, os });
       if (decoded.hash !== expectedHash) {
         console.error("\n❌ Hash mismatch — token data may have been tampered with.");
         console.error(`   Expected : ${expectedHash}`);
@@ -73,7 +72,6 @@ export function verifyCommand() {
       console.log(`   Student ID  : ${decoded.studentId}`);
       console.log(`   Course      : ${decoded.course}`);
       console.log(`   OS          : ${decoded.os}`);
-      console.log(`   IP          : ${decoded.ip}`);
       console.log(`   Hash        : ${decoded.hash}`);
       console.log(`   Issued at   : ${issuedAt}`);
       console.log(`   Expires at  : ${expiresAt}`);
