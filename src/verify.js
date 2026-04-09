@@ -41,7 +41,7 @@ export function verifyCommand() {
       const mismatches = [];
       const fields = { name, surname, studentId, course, os };
       for (const [key, value] of Object.entries(fields)) {
-        if (decoded[key] !== value) {
+        if (decoded[key].toLowerCase().trim() !== value.toLowerCase().trim()) {
           mismatches.push(
             `   • ${key}: expected "${value}", token contains "${decoded[key]}"`
           );
@@ -55,7 +55,13 @@ export function verifyCommand() {
       }
 
       // Recompute and verify hash
-      const expectedHash = computeHash({ name, surname, studentId, course, os });
+      const expectedHash = computeHash({
+        name: decoded.name,
+        surname: decoded.surname,
+        studentId: decoded.studentId,
+        course: decoded.course,
+        os: decoded.os
+      });
       if (decoded.hash !== expectedHash) {
         console.error("\n❌ Hash mismatch — token data may have been tampered with.");
         console.error(`   Expected : ${expectedHash}`);

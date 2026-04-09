@@ -2,7 +2,7 @@ import { createHash } from "crypto";
 import { networkInterfaces, platform } from "os";
 
 export const STUDENT_ID_REGEX = /^\d{6}-\d$/;
-export const COURSE_REGEX = /^[A-Z]\d{4}$/;
+export const COURSE_REGEX = /^[A-Z]\d{4}$/i;
 export const JWT_SECRET = "hello-ddso-secret-key";
 export const JWT_EXPIRY = "1h";
 
